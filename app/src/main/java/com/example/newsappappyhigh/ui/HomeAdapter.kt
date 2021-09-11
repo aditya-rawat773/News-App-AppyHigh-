@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsappappyhigh.R
 import com.example.newsappappyhigh.models.Article
 import com.example.newsappappyhigh.models.NewsResponse
@@ -37,11 +39,19 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
 
     inner class MyViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
-        val tvItem = view.tv_item
+        private val tvTitle = view.tvTitle
+        private val tvDescription = view.tvDescription
+        private val tvSource = view.tv_source
+        private val ivTitle = view.ivTitle
+
 
         @SuppressLint("SetTextI18n")
         fun bind(data: Article){
-            tvItem.text = data.title
+            tvTitle.text = data.title
+            tvDescription.text= data.description
+            tvSource.text= data.author
+
+            Glide.with(ivTitle).load(data.urlToImage).into(ivTitle)
         }
     }
 }
