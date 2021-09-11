@@ -18,7 +18,8 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
 
     fun setListData(data: ArrayList<Article>){
         this.items = data
-        Log.d("ankit", "setListData:${data} ")
+        Log.d("ankit", "setListData:$items ")
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.MyViewHolder {
@@ -40,7 +41,7 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
 
         @SuppressLint("SetTextI18n")
         fun bind(data: Article){
-            tvItem.text = data.author
+            tvItem.text = data.title
         }
     }
 }

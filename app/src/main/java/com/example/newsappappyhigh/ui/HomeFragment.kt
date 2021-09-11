@@ -1,6 +1,7 @@
 package com.example.newsappappyhigh.ui
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,16 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsappappyhigh.MainActivity
 import com.example.newsappappyhigh.R
 import com.example.newsappappyhigh.models.Article
-import com.example.newsappappyhigh.models.NewsResponse
+import com.example.newsappappyhigh.utils.Resource
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: NewsViewModel
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var mHomeAdapter: HomeAdapter
-    private lateinit var listData:ArrayList<Article>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +33,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
+
+        homeViewModel = (activity as MainActivity).viewModel
 
         recyclerView.apply {
 
@@ -47,16 +49,40 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getPostObserver().observe(viewLifecycleOwner,{
 
-            if (it != null) {
+            when(it){
+                is Resource.Success ->{
+                    hideProgressBar()
+                    it.data?.let { newsResponse ->
+                        Log.d("adi", "onViewCreated: ${newsResponse.articles}")
+                        mHomeAdapter.setListData((newsResponse.articles as ArrayList<Article>))
+                        mHomeAdapter.notifyDataSetChanged()
 
-                listData = it.articles as ArrayList<Article>
-                mHomeAdapter.setListData(listData)
-                mHomeAdapter.notifyDataSetChanged()
+                    }
+                }
+                is Resource.Error ->{
+                    hideProgressBar()
+                    it.message?.let{ message ->
+
+                        Log.e(TAG,"An error occur $message")
+                    }
+                }
+                is Resource.Loading ->{
+                    showProgressBar()
+                }
             }
-
         })
 
 
+
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.INVISIBLE
+
+    }
+
+    private fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
 
     }
 
