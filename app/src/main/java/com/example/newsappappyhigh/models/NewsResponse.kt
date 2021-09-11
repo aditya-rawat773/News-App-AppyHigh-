@@ -1,5 +1,7 @@
 package com.example.newsappappyhigh.models
 
+import java.io.Serializable
+
 
 data class NewsResponse(
     val articles: MutableList<Article>,
@@ -17,7 +19,7 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String
-)
+):Serializable
 
 data class Source(
     val id: String,

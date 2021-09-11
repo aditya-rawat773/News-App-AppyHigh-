@@ -41,7 +41,6 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
 
         private val tvTitle = view.tvTitle
         private val tvDescription = view.tvDescription
-        private val tvSource = view.tv_source
         private val ivTitle = view.ivTitle
 
 
@@ -49,9 +48,25 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
         fun bind(data: Article){
             tvTitle.text = data.title
             tvDescription.text= data.description
-            tvSource.text= data.author
-
             Glide.with(ivTitle).load(data.urlToImage).into(ivTitle)
+
+
+            with(itemView){
+
+                setOnClickListener {
+                    onItemClickListener?.let { it(data) }
+                }
+
+            }
+
         }
+
+
+    }
+
+    private var onItemClickListener:((Article) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: ((Article) -> Unit)){
+        onItemClickListener = listener
     }
 }

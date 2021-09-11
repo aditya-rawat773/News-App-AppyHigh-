@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="com.example.newsappappyhigh.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_articleFragment2"
+            app:destination="@id/articleFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleFragment2"
+        android:name="com.example.newsappappyhigh.ui.ArticleFragment"
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article" >
+        <argument
+            android:name="article"
+            app:argType="com.example.newsappappyhigh.models.Article" />
+    </fragment>
 </navigation>

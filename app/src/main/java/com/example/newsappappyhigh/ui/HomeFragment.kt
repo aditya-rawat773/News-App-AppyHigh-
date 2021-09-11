@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsappappyhigh.MainActivity
 import com.example.newsappappyhigh.R
@@ -46,6 +47,15 @@ class HomeFragment : Fragment() {
         val countryCode = "in"
         val category = "general"
         homeViewModel.getNewsData(countryCode,category)
+
+        mHomeAdapter.setOnItemClickListener {
+
+            val bundle = Bundle().apply {
+                putSerializable("article",it)
+            }
+
+            findNavController().navigate(R.id.action_homeFragment_to_articleFragment2,bundle)
+        }
 
         homeViewModel.getPostObserver().observe(viewLifecycleOwner,{
 
