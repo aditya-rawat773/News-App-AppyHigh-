@@ -7,27 +7,101 @@
     android:layout_height="match_parent"
     tools:context=".ui.HomeFragment">
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_in"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toLeftOf="@+id/btn_us"-->
-<!--        android:fontFamily="@font/poppins_regular"-->
-<!--        android:text="India"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/recyclerView"/>-->
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_us"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/btn_in"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        android:fontFamily="@font/poppins_regular"-->
-<!--        android:text="US"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/recyclerView"/>-->
+
+
+
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:scrollbars="none">
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+         >
+
+        <Button
+            android:elevation="1dp"
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Home"
+            android:textColor="@color/colorPrimaryDark"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+
+        <Button
+            android:elevation="1dp"
+            android:id="@+id/button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="entertainment"
+            android:textColor="@color/colorPrimaryDark"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+        <Button
+            android:elevation="1dp"
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="health"
+            android:textColor="@color/colorPrimaryDark"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+        <Button
+            android:elevation="1dp"
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="science"
+            android:textColor="@color/colorPrimaryDark"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+        <Button
+            android:elevation="1dp"
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="sports"
+            android:textColor="@color/colorPrimaryDark"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+        <Button
+            android:elevation="1dp"
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="technology"
+            android:textColor="@color/colorPrimaryDark"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+        <Button
+            android:elevation="1dp"
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="business"
+            android:textColor="@color/colorPrimaryDark"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+    </HorizontalScrollView>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -36,9 +110,10 @@
         android:clipToPadding="false"
         android:paddingBottom="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
         app:layout_constraintRight_toRightOf="parent"
         />
+
 
     <ProgressBar
         android:id="@+id/progressBar"

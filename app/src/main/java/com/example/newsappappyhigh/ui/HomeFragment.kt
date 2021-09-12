@@ -16,6 +16,7 @@ import com.example.newsappappyhigh.R
 import com.example.newsappappyhigh.models.Article
 import com.example.newsappappyhigh.utils.Resource
 import kotlinx.android.synthetic.main.fragment_home.*
+import okhttp3.internal.notify
 
 class HomeFragment : Fragment() {
 
@@ -36,6 +37,38 @@ class HomeFragment : Fragment() {
 
 
         homeViewModel = (activity as MainActivity).viewModel
+        homeViewModel.getNewsData("in","general")
+
+        toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+            if(isChecked){
+                when(checkedId){
+                    R.id.button1 ->{
+                        getCategory("in","general")
+                    }
+                    R.id.button7 -> {
+                        getCategory("in","entertainment")
+                    }
+                    R.id.button2 ->{
+                        getCategory("in","health")
+                    }
+                    R.id.button3-> {
+                        getCategory("in","science")
+                    }
+                    R.id.button4 ->{
+                        getCategory("in","sports")
+                    }
+                    R.id.button5 -> {
+                        getCategory("in","technology")
+                    }
+                    R.id.button6 ->{
+                        getCategory("in","business")
+                    }
+                }
+            }
+        }
+
+
+
 
         recyclerView.apply {
 
@@ -44,9 +77,8 @@ class HomeFragment : Fragment() {
             adapter = mHomeAdapter
         }
 
-        val countryCode = "in"
-        val category = "general"
-        homeViewModel.getNewsData(countryCode,category)
+
+
 
         mHomeAdapter.setOnItemClickListener {
 
@@ -81,19 +113,21 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun getCategory(countryCode:String, category:String){
 
-
+        homeViewModel.getNewsData(countryCode,category)
+        mHomeAdapter.notifyDataSetChanged()
     }
 
     private fun hideProgressBar() {
         progressBar.visibility = View.INVISIBLE
-
     }
 
     private fun showProgressBar() {
         progressBar.visibility = View.VISIBLE
-
     }
 
 }

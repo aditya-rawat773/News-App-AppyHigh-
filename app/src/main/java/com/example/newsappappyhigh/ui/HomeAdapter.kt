@@ -46,6 +46,7 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
 
         @SuppressLint("SetTextI18n")
         fun bind(data: Article){
+
             tvTitle.text = data.title
             tvDescription.text= data.description
             Glide.with(ivTitle).load(data.urlToImage).into(ivTitle)

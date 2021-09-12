@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.newsappappyhigh.repository.NewsRepository
 import com.example.newsappappyhigh.ui.HomeViewModel
 import com.example.newsappappyhigh.ui.HomeViewModelProviderFactory
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        MobileAds.initialize(this) {}
 
         val newsRepository = NewsRepository()
         val viewModelProviderFactory = HomeViewModelProviderFactory(newsRepository)
