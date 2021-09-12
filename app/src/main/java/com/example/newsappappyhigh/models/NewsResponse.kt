@@ -1,5 +1,7 @@
 package com.example.newsappappyhigh.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
 
@@ -8,7 +10,6 @@ data class NewsResponse(
     val status: String,
     val totalResults: Int
 )
-
 
 data class Article(
     val author: String,

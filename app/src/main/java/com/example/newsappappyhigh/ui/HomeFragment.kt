@@ -23,6 +23,10 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var mHomeAdapter: HomeAdapter
 
+    private var list = ArrayList<Article>()
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +41,21 @@ class HomeFragment : Fragment() {
 
 
         homeViewModel = (activity as MainActivity).viewModel
-        homeViewModel.getNewsData("in","general")
+
+        recyclerView.apply {
+
+            mHomeAdapter = HomeAdapter(list)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mHomeAdapter
+        }
+
+        getCategory("in","general")
 
         toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
             if(isChecked){
                 when(checkedId){
+
+
                     R.id.button1 ->{
                         getCategory("in","general")
                     }
@@ -67,19 +81,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-
-
-
-        recyclerView.apply {
-
-            mHomeAdapter = HomeAdapter()
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = mHomeAdapter
-        }
-
-
-
-
         mHomeAdapter.setOnItemClickListener {
 
             val bundle = Bundle().apply {
@@ -88,16 +89,31 @@ class HomeFragment : Fragment() {
 
             findNavController().navigate(R.id.action_homeFragment_to_articleFragment2,bundle)
         }
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun getCategory(countryCode:String, category:String){
+
+
+
+        homeViewModel.getNewsData(countryCode,category)
         homeViewModel.getPostObserver().observe(viewLifecycleOwner,{
 
             when(it){
                 is Resource.Success ->{
                     hideProgressBar()
                     it.data?.let { newsResponse ->
+
+
+                        list.clear()
+                        list.addAll(newsResponse.articles)
+
+
                         Log.d("adi", "onViewCreated: ${newsResponse.articles}")
-                        mHomeAdapter.setListData((newsResponse.articles as ArrayList<Article>))
+                       // mHomeAdapter.setListData(newsResponse.articles as ArrayList<Article>)
                         mHomeAdapter.notifyDataSetChanged()
+
+
 
                     }
                 }
@@ -113,13 +129,8 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-    }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun getCategory(countryCode:String, category:String){
 
-        homeViewModel.getNewsData(countryCode,category)
-        mHomeAdapter.notifyDataSetChanged()
     }
 
     private fun hideProgressBar() {

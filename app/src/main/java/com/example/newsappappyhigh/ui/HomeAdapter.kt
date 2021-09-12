@@ -13,14 +13,21 @@ import com.example.newsappappyhigh.models.Article
 import com.example.newsappappyhigh.models.NewsResponse
 import kotlinx.android.synthetic.main.news_list.view.*
 
-class HomeAdapter: RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
+class HomeAdapter(private val items:ArrayList<Article>): RecyclerView.Adapter<HomeAdapter.MyViewHolder>()  {
 
-    private var items = ArrayList<Article>()
+   // private var items = ArrayList<Article>()
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setListData(data: ArrayList<Article>){
-        this.items = data
-        Log.d("ankit", "setListData:$items ")
+
+//        items.clear()
+//        val list = ArrayList<Article>()
+//        list.addAll(data)
+//        items.addAll(list)
+
+
+        Log.d("ankit", "setListData:${items.size} ")
 
     }
 
