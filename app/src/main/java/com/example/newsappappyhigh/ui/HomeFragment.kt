@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsappappyhigh.MainActivity
 import com.example.newsappappyhigh.R
+import com.example.newsappappyhigh.databinding.FragmentHomeBinding
 import com.example.newsappappyhigh.models.Article
 import com.example.newsappappyhigh.utils.Resource
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -20,19 +21,19 @@ import okhttp3.internal.notify
 
 class HomeFragment : Fragment() {
 
+    private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var mHomeAdapter: HomeAdapter
 
+
     private var list = ArrayList<Article>()
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel = (activity as MainActivity).viewModel
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
 
             mHomeAdapter = HomeAdapter(list)
             layoutManager = LinearLayoutManager(requireContext())
@@ -51,31 +52,60 @@ class HomeFragment : Fragment() {
 
         getCategory("in","general")
 
-        toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+        var country = "in"
+        var category = "general"
+
+
+        binding.toggleButtonCc.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if(isChecked){
+                when(checkedId){
+                    R.id.btn_in ->  {
+                        getCategory("in",category)
+                        country = "in"
+                    }
+                    R.id.btn_us -> {
+                        getCategory("us",category)
+                        country = "us"
+                    }
+                }
+            }
+        }
+
+
+        binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
             if(isChecked){
                 when(checkedId){
 
-
                     R.id.button1 ->{
-                        getCategory("in","general")
+                        category = "general"
+                        getCategory(country,category)
+
                     }
                     R.id.button7 -> {
-                        getCategory("in","entertainment")
+                        category = "entertainment"
+                        getCategory(country,category)
+
                     }
                     R.id.button2 ->{
-                        getCategory("in","health")
+                        category="health"
+                        getCategory(country,category)
+
                     }
                     R.id.button3-> {
-                        getCategory("in","science")
+                        category = "science"
+                        getCategory(country,category)
                     }
                     R.id.button4 ->{
-                        getCategory("in","sports")
+                        category = "sports"
+                        getCategory(country,category)
                     }
                     R.id.button5 -> {
-                        getCategory("in","technology")
+                        category = "technology"
+                        getCategory(country,category)
                     }
                     R.id.button6 ->{
-                        getCategory("in","business")
+                        category = "business"
+                        getCategory(country,category)
                     }
                 }
             }
@@ -86,15 +116,12 @@ class HomeFragment : Fragment() {
             val bundle = Bundle().apply {
                 putSerializable("article",it)
             }
-
             findNavController().navigate(R.id.action_homeFragment_to_articleFragment2,bundle)
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun getCategory(countryCode:String, category:String){
-
-
 
         homeViewModel.getNewsData(countryCode,category)
         homeViewModel.getPostObserver().observe(viewLifecycleOwner,{
@@ -108,19 +135,14 @@ class HomeFragment : Fragment() {
                         list.clear()
                         list.addAll(newsResponse.articles)
 
-
                         Log.d("adi", "onViewCreated: ${newsResponse.articles}")
                        // mHomeAdapter.setListData(newsResponse.articles as ArrayList<Article>)
                         mHomeAdapter.notifyDataSetChanged()
-
-
-
                     }
                 }
                 is Resource.Error ->{
                     hideProgressBar()
                     it.message?.let{ message ->
-
                         Log.e(TAG,"An error occur $message")
                     }
                 }

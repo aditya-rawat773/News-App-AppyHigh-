@@ -8,7 +8,53 @@
     tools:context=".ui.HomeFragment">
 
 
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--        android:id="@+id/adView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        ads:adSize="BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
+<!--        ads:layout_constraintLeft_toLeftOf="parent"-->
+<!--        ads:layout_constraintTop_toTopOf="parent"-->
+<!--        ads:layout_constraintRight_toRightOf="parent">-->
+<!--    </com.google.android.gms.ads.AdView>-->
 
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButton_cc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        >
+
+    <Button
+        android:elevation="1dp"
+        android:id="@+id/btn_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="IN"
+        android:textColor="@color/colorPrimaryDark"
+        style="?attr/materialButtonOutlinedStyle"
+        />
+
+    <Button
+        android:elevation="1dp"
+        android:id="@+id/btn_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="US"
+        android:textColor="@color/colorPrimaryDark"
+        style="?attr/materialButtonOutlinedStyle"
+        />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
     <HorizontalScrollView
@@ -16,8 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButton_cc"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         android:scrollbars="none">
 
     <com.google.android.material.button.MaterialButtonToggleGroup

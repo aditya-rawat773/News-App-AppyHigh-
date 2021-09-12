@@ -37,6 +37,7 @@ class HomeViewModel(
                     homeNewsResponse = it
                 } else {
                     val oldArticles = homeNewsResponse?.articles
+                    oldArticles?.clear()
                     val newArticle = it.articles
                     oldArticles?.addAll(newArticle)
                 }
@@ -45,5 +46,4 @@ class HomeViewModel(
         }
         return Resource.Error(response.message())
     }
-
 }

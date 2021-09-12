@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this) {}
-
         val newsRepository = NewsRepository()
         val viewModelProviderFactory = HomeViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this,viewModelProviderFactory).get(HomeViewModel::class.java)
