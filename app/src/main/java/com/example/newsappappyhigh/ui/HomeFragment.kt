@@ -16,6 +16,7 @@ import com.example.newsappappyhigh.R
 import com.example.newsappappyhigh.databinding.FragmentHomeBinding
 import com.example.newsappappyhigh.models.Article
 import com.example.newsappappyhigh.utils.Resource
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.internal.notify
 
@@ -40,6 +41,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.adView.loadAd(AdRequest.Builder().build())
 
         homeViewModel = (activity as MainActivity).viewModel
 
